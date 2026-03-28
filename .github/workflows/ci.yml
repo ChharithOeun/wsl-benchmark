@@ -1,0 +1,53 @@
+name: CI -- Cross-Platform
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  schedule:
+    - cron: "0 6 * * 1"
+
+jobs:
+  test:
+    name: ${{ matrix.os }} / Python ${{ matrix.python-version }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        python-version: ["3.9", "3.10", "3.11", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install package
+        run: pip install -e .
+      - name: Test import
+        run: python -c "import wsl_benchmark; print('version:', wsl_benchmark.__version__)"
+      - name: Test CLI help
+        run: python -m wsl_benchmark --help
+      - name: Test CLI version
+        run: python -m wsl_benchmark --version
+      - name: Test CPU-only benchmark (JSON output)
+        run: python -m wsl_benchmark --ops matmul --size 128 --warmup 1 --runs 2 --json
+      - name: Test JSON output format
+        run: |
+          python -c "
+import subprocess, json, sys
+result = subprocess.run(
+    [sys.executable, '-m', 'wsl_benchmark', '--ops', 'matmul', '--size', '64', '--warmup', '1', '--runs', '1', '--json'],
+    capture_output=True, text=True
+)
+assert result.returncode == 0, f'Exit {result.returncode}: {result.stderr}'
+data = json.loads(result.stdout)
+assert 'results' in data, 'Missing results key'
+assert 'device' in data, 'Missing device key'
+assert len(data['results']) == 1, f'Expected 1 result, got {len(data[\"results\"])}'
+r = data['results'][0]
+assert r['op'] == 'matmul', f'Wrong op: {r[\"op\"]}'
+print('JSON format: OK')
+          "
+      - name: Test all ops (CPU-only)
+        run: python -m wsl_benchmark --ops matmul,fft --size 64 --warmup 1 --runs 1

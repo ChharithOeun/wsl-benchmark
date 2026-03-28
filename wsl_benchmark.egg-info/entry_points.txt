@@ -1,0 +1,2 @@
+[console_scripts]
+wsl-benchmark = wsl_benchmark.__main__:main

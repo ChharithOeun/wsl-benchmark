@@ -1,0 +1,50 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "wsl-benchmark"
+version = "0.1.0"
+description = "GPU vs CPU performance benchmarking for PyTorch and JAX. Works on AMD ROCm, DirectML, CUDA, MPS, and CPU. Optimized for RX 5700 XT in WSL2."
+readme = "README.md"
+license = {text = "MIT"}
+authors = [{name = "ChharithOeun", email = "chharith@gmail.com"}]
+requires-python = ">=3.8"
+dependencies = []
+keywords = [
+    "gpu", "benchmark", "pytorch", "jax", "wsl2", "amd", "rocm",
+    "directml", "cuda", "mps", "rx5700xt", "performance", "profiling",
+    "machine-learning", "deep-learning", "windows", "linux"
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: System :: Benchmark",
+]
+
+[project.optional-dependencies]
+torch = ["torch>=1.11"]
+all = ["torch>=1.11", "numpy", "gpu-doctor"]
+
+[project.scripts]
+wsl-benchmark = "wsl_benchmark.__main__:main"
+
+[project.urls]
+Homepage = "https://github.com/ChharithOeun/wsl-benchmark"
+Repository = "https://github.com/ChharithOeun/wsl-benchmark"
+"Bug Tracker" = "https://github.com/ChharithOeun/wsl-benchmark/issues"
+Changelog = "https://github.com/ChharithOeun/wsl-benchmark/blob/main/CHANGELOG.md"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["wsl_benchmark*"]

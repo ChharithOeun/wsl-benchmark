@@ -1,0 +1,15 @@
+LICENSE
+README.md
+pyproject.toml
+tests/test_benchmark.py
+wsl_benchmark/__init__.py
+wsl_benchmark/__main__.py
+wsl_benchmark/detect.py
+wsl_benchmark/report.py
+wsl_benchmark/runner.py
+wsl_benchmark.egg-info/PKG-INFO
+wsl_benchmark.egg-info/SOURCES.txt
+wsl_benchmark.egg-info/dependency_links.txt
+wsl_benchmark.egg-info/entry_points.txt
+wsl_benchmark.egg-info/requires.txt
+wsl_benchmark.egg-info/top_level.txt

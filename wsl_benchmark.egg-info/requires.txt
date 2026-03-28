@@ -1,0 +1,8 @@
+
+[all]
+torch>=1.11
+numpy
+gpu-doctor
+
+[torch]
+torch>=1.11
