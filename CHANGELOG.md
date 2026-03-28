@@ -8,6 +8,7 @@
 
 ### Fixed
 
+- fix: token scope + size limit (security vuln scan)
 - fix: ci.yml -- replace broken inline python with pytest, fix install step
 
 
