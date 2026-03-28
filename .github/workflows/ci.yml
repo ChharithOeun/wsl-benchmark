@@ -22,32 +22,32 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
-      - name: Install package
-        run: pip install -e .
+
+      - name: Install package + pytest + numpy
+        run: pip install -e . pytest numpy
+
       - name: Test import
         run: python -c "import wsl_benchmark; print('version:', wsl_benchmark.__version__)"
+
       - name: Test CLI help
         run: python -m wsl_benchmark --help
+
       - name: Test CLI version
         run: python -m wsl_benchmark --version
+
+      - name: Test CPU-only benchmark (table output)
+        run: python -m wsl_benchmark --ops matmul --size 128 --warmup 1 --runs 2
+
       - name: Test CPU-only benchmark (JSON output)
         run: python -m wsl_benchmark --ops matmul --size 128 --warmup 1 --runs 2 --json
-      - name: Test JSON output format
+
+      - name: Test invalid op exits 1
+        shell: bash
         run: |
-          python -c "
-import subprocess, json, sys
-result = subprocess.run(
-    [sys.executable, '-m', 'wsl_benchmark', '--ops', 'matmul', '--size', '64', '--warmup', '1', '--runs', '1', '--json'],
-    capture_output=True, text=True
-)
-assert result.returncode == 0, f'Exit {result.returncode}: {result.stderr}'
-data = json.loads(result.stdout)
-assert 'results' in data, 'Missing results key'
-assert 'device' in data, 'Missing device key'
-assert len(data['results']) == 1, f'Expected 1 result, got {len(data[\"results\"])}'
-r = data['results'][0]
-assert r['op'] == 'matmul', f'Wrong op: {r[\"op\"]}'
-print('JSON format: OK')
-          "
-      - name: Test all ops (CPU-only)
+          python -m wsl_benchmark --ops bad_op && exit 1 || exit 0
+
+      - name: Test all ops CPU-only
         run: python -m wsl_benchmark --ops matmul,fft --size 64 --warmup 1 --runs 1
+
+      - name: Run pytest
+        run: python -m pytest tests/ -v --tb=short
