@@ -81,8 +81,8 @@ def main():
         if bad:
             print(f"[ERROR] Unknown ops: {bad}. Valid: {sorted(valid_ops)}", file=sys.stderr)
             sys.exit(1)
-        if args.size < 64 or args.size > 8192:
-            print("[ERROR] --size must be between 64 and 8192", file=sys.stderr)
+        if args.size < 64 or args.size > 4096:
+            print("[ERROR] --size must be between 64 and 4096", file=sys.stderr)
             sys.exit(1)
         if args.warmup < 0 or args.warmup > 100:
             print("[ERROR] --warmup must be between 0 and 100", file=sys.stderr)

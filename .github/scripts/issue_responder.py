@@ -12,16 +12,20 @@ except ImportError:
     print("requests not installed")
     sys.exit(0)
 
-GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN", "")
 REPO = os.environ.get("REPO", "")
 ISSUE_NUMBER = os.environ.get("ISSUE_NUMBER", "")
 ISSUE_TITLE = os.environ.get("ISSUE_TITLE", "")
 ISSUE_BODY = os.environ.get("ISSUE_BODY", "")
 
-HEADERS = {
-    "Authorization": f"token {GITHUB_TOKEN}",
-    "Accept": "application/vnd.github.v3+json",
-}
+# Token intentionally NOT stored at module level to prevent leakage in tracebacks
+def _get_headers():
+    token = os.environ.get("GITHUB_TOKEN", "")
+    if not token:
+        raise RuntimeError("GITHUB_TOKEN not set")
+    return {
+        "Authorization": "token " + token,
+        "Accept": "application/vnd.github.v3+json",
+    }
 
 PATTERNS = [
     {
@@ -126,7 +130,7 @@ BOT_TAG = "<!-- wsl-benchmark-bot -->"
 
 def already_responded(issue_number):
     url = f"https://api.github.com/repos/{REPO}/issues/{issue_number}/comments"
-    resp = requests.get(url, headers=HEADERS, timeout=10)
+    resp = requests.get(url, headers=_get_headers(), timeout=10)
     if resp.status_code != 200:
         return False
     for comment in resp.json():
@@ -137,7 +141,7 @@ def already_responded(issue_number):
 def post_comment(issue_number, body):
     url = f"https://api.github.com/repos/{REPO}/issues/{issue_number}/comments"
     data = {"body": body + f"\n\n{BOT_TAG}"}
-    resp = requests.post(url, headers=HEADERS, json=data, timeout=10)
+    resp = requests.post(url, headers=_get_headers(), json=data, timeout=10)
     return resp.status_code == 201
 
 def find_response(title, body):
