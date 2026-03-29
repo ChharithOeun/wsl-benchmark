@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased] - 2026-03-28
+## [Unreleased] - 2026-03-29
 
 ### Added
 
@@ -10,6 +10,10 @@
 
 - fix: token scope + size limit (security vuln scan)
 - fix: ci.yml -- replace broken inline python with pytest, fix install step
+
+### Other
+
+- Add neon banner
 
 
 ## [0.1.0] - 2026-03-28
