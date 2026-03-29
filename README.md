@@ -1,3 +1,5 @@
+<p align="center"><img src="assets/banner.png" alt="WSL Benchmark Banner" width="100%"></p>
+
 # wsl-benchmark
 
 GPU vs CPU performance benchmarking for PyTorch and JAX.
