@@ -331,3 +331,11 @@ MIT -- See LICENSE file
 - Supports PyTorch and JAX ecosystems
 - Cross-platform: Windows, Linux, macOS
 - SEO keywords: GPU benchmark, PyTorch benchmark, JAX benchmark, AMD ROCm, DirectML, RX 5700 XT, WSL2 performance, CUDA benchmark, gfx1010
+
+---
+
+## Support This Work
+
+If this saved you time, consider buying me a coffee:
+
+[![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-chharcop-yellow)](https://buymeacoffee.com/chharcop)
