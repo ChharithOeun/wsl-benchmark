@@ -321,6 +321,23 @@ python -m wsl_benchmark
 
 - **__main__.py**: CLI argument parsing and validation
 
+
+## Contributing
+
+Contributions are welcome! To contribute:
+
+1. **Fork** the repository and create a feature branch:
+   ```
+   git checkout -b fix/your-fix
+   ```
+2. **Test** your changes locally before submitting.
+3. **Open a Pull Request** describing what you changed and why.
+
+### Reporting Issues
+
+Open a GitHub Issue and include your OS version, GPU model, driver version, and the exact error message.
+
+---
 ## License
 
 MIT -- See LICENSE file
