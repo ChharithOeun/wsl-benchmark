@@ -8,6 +8,7 @@
 
 ### Fixed
 
+- fix: correct Buy Me a Coffee link to buymeacoffee.com/chharith
 - fix: token scope + size limit (security vuln scan)
 - fix: ci.yml -- replace broken inline python with pytest, fix install step
 
