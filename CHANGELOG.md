@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased] - 2026-03-29
+## [Unreleased] - 2026-04-19
 
 ### Added
 
@@ -10,6 +10,10 @@
 
 - fix: token scope + size limit (security vuln scan)
 - fix: ci.yml -- replace broken inline python with pytest, fix install step
+
+### Changed
+
+- docs: add Buy Me A Coffee link to README
 
 ### Other
 
