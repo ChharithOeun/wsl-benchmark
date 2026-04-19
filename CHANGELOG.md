@@ -13,6 +13,7 @@
 
 ### Changed
 
+- docs: add Contributing section to README
 - docs: add Buy Me A Coffee link to README
 
 ### Other
